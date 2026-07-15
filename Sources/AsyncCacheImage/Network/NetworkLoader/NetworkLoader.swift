@@ -1,6 +1,6 @@
 //
 //  NetworkLoader.swift
-//  AsyncCachedImage
+//  AsyncCacheImage
 //
 //  Created by Ульяна Гритчина on 15.07.2026.
 //

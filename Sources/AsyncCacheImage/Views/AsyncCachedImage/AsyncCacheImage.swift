@@ -1,17 +1,17 @@
 //
-//  AsyncCachedImage.swift
-//  AsyncCachedImage
+//  AsyncCacheImage.swift
+//  AsyncCacheImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
 //
 
 import SwiftUI
 
-public struct AsyncCachedImage: View {
-    @State private var viewModel: AsyncCachedImageViewModel
+public struct AsyncCacheImage: View {
+    @State private var viewModel: AsyncCacheImageViewModel
     
-    public init(url: URL, dependencies: AsyncCachedImageDependencies = .live) {
-        viewModel = AsyncCachedImageViewModel(
+    public init(url: URL, dependencies: AsyncCacheImageDependencies = .live) {
+        viewModel = AsyncCacheImageViewModel(
             url: url,
             pipeline: dependencies.imagePipeline
         )
@@ -40,10 +40,10 @@ public struct AsyncCachedImage: View {
 }
 
 #Preview {
-    AsyncCachedImage(url: URL(string: "")!)
+    AsyncCacheImage(url: URL(string: "https://apod.nasa.gov/apod/image/2607/red_sprite.jpg")!)
 }
 
-extension AsyncCachedImage {
+extension AsyncCacheImage {
     private var placeholder: some View {
         Rectangle()
             .foregroundStyle(Color.gray.opacity(0.3))

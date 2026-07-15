@@ -1,13 +1,13 @@
 //
 //  File.swift
-//  AsyncCachedImage
+//  AsyncCacheImage
 //
 //  Created by Ульяна Гритчина on 15.07.2026.
 //
 
 import Foundation
 
-public final class AsyncCachedImageDependencies {
+public final class AsyncCacheImageDependencies {
     let imagePipeline: ImagePipeline
     
     public init(imagePipeline: ImagePipeline) {
@@ -15,8 +15,8 @@ public final class AsyncCachedImageDependencies {
     }
 }
 
-extension AsyncCachedImageDependencies {
-    @MainActor public static let live = AsyncCachedImageDependencies(
+extension AsyncCacheImageDependencies {
+    @MainActor public static let live = AsyncCacheImageDependencies(
         imagePipeline: ImagePipelineImpl(
             memoryCache: DefaultMemoryCache(),
             networkLoader: NetworkImageLoaderImpl()

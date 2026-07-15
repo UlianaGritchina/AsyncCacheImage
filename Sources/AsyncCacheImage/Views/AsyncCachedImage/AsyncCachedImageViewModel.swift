@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  AsyncCachedImage
+//  AsyncCacheImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
 //
@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-final class AsyncCachedImageViewModel {
+final class AsyncCacheImageViewModel {
     
     private let pipeline: ImagePipeline
     private let url: URL

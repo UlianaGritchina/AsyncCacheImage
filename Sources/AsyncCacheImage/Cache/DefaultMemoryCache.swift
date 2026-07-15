@@ -1,6 +1,6 @@
 //
 //  DefaultMemoryCache.swift
-//  AsyncCachedImage
+//  AsyncCacheImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
 //
