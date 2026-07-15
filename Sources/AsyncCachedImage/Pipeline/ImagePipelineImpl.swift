@@ -1,5 +1,5 @@
 //
-//  ImagePipeline.swift
+//  ImagePipelineImpl.swift
 //  AsyncCachedImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
@@ -7,28 +7,29 @@
 
 import Foundation
 
-protocol ImagePipeline: Sendable {
-    func getImageData(for url: URL) async throws -> Data
-}
-
 final class ImagePipelineImpl: ImagePipeline {
     
     let memoryCache: MemoryCacheService
-    let networkImageLoader: NetworkImageLoader
+    let networkLoader: NetworkLoader
     
-    init(memoryCache: MemoryCacheService, networkImageLoader: NetworkImageLoader) {
+    public init(
+        memoryCache: MemoryCacheService,
+        networkLoader: NetworkLoader
+    ) {
         self.memoryCache = memoryCache
-        self.networkImageLoader = networkImageLoader
+        self.networkLoader = networkLoader
     }
     
     func getImageData(for url: URL) async throws -> Data {
         let cacheKey = url.absoluteString
         
-        if let cachedImageData = memoryCache.get(key: cacheKey) {
+        if let cachedImageData = await memoryCache.get(key: cacheKey) {
             return cachedImageData
         }
         
-        let imageData = try await networkImageLoader.data(from: url)
+        let imageData = try await networkLoader.data(from: url)
+        
+        await memoryCache.save(data: imageData, for: cacheKey)
         
         return imageData
     }

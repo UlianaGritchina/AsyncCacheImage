@@ -1,5 +1,5 @@
 //
-//  MemoryCacheService.swift
+//  DefaultMemoryCache.swift
 //  AsyncCachedImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
@@ -7,14 +7,7 @@
 
 import Foundation
 
-protocol MemoryCacheService: Sendable {
-    func save(data: Data, for key: String)
-    func get(key: String) -> Data?
-    func delete(for key: String)
-    func deleteAll()
-}
-
-final class MemoryCacheServiceImpl: MemoryCacheService, @unchecked Sendable {
+actor DefaultMemoryCache: MemoryCacheService {
     private let cache = NSCache<NSString, NSData>()
     
     init(

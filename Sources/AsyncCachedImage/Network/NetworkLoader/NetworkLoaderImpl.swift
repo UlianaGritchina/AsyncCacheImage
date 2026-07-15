@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkImageLoaderImpl.swift
 //  AsyncCachedImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol NetworkImageLoader: Sendable {
-    func data(from url: URL) async throws -> Data
-}
-
-final class NetworkImageLoaderImpl: NetworkImageLoader {
+final class NetworkImageLoaderImpl: NetworkLoader {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
@@ -19,10 +15,12 @@ final class NetworkImageLoaderImpl: NetworkImageLoader {
     }
     
     func data(from url: URL) async throws -> Data {
-        let (data, response) = try await session.data(
-            from: url
-        )
-        
+        let (data, response) = try await session.data(from: url)
+        try checkResponse(response)
+        return data
+    }
+    
+    private func checkResponse(_ response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw ImageLoaderError.invalidResponse
         }
@@ -32,7 +30,6 @@ final class NetworkImageLoaderImpl: NetworkImageLoader {
                 statusCode: httpResponse.statusCode
             )
         }
-        return data
     }
 }
 

@@ -10,23 +10,22 @@ import Foundation
 @Observable
 final class AsyncCachedImageViewModel {
     
-    private let imagePipeline: ImagePipeline
+    private let pipeline: ImagePipeline
     private let url: URL
     
     var loadingState: LoadingState = .loading
     
-    init(url: URL) {
+    init(url: URL, pipeline: ImagePipeline) {
         self.url = url
-        imagePipeline = ImagePipelineImpl(
-            memoryCache: MemoryCacheServiceImpl(),
-            networkImageLoader: NetworkImageLoaderImpl()
-        )
+        self.pipeline = pipeline
     }
     
     @MainActor
     func loadImageData() async {
+        guard case .loading = loadingState else { return }
+        
         do {
-            let imageData = try await imagePipeline.getImageData(for: url)
+            let imageData = try await pipeline.getImageData(for: url)
             loadingState = .loaded(imageData: imageData)
         } catch {
             loadingState = .error

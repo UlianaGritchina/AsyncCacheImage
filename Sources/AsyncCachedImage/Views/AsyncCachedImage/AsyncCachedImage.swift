@@ -10,8 +10,11 @@ import SwiftUI
 public struct AsyncCachedImage: View {
     @State private var viewModel: AsyncCachedImageViewModel
     
-    public init(url: URL) {
-        viewModel = AsyncCachedImageViewModel(url: url)
+    public init(url: URL, dependencies: AsyncCachedImageDependencies = .live) {
+        viewModel = AsyncCachedImageViewModel(
+            url: url,
+            pipeline: dependencies.imagePipeline
+        )
     }
     
     public var body: some View {

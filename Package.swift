@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "AsyncCachedImage",
+    name: "AsyncCacheImage",
     platforms: [
         .iOS(.v17),
         .macOS(.v15)
@@ -12,16 +12,16 @@ let package = Package(
     products: [
         .library(
             name: "AsyncCachedImage",
-            targets: ["AsyncCachedImage"]
+            targets: ["AsyncCacheImage"]
         ),
     ],
     targets: [
         .target(
-            name: "AsyncCachedImage"
+            name: "AsyncCacheImage"
         ),
         .testTarget(
-            name: "AsyncCachedImageTests",
-            dependencies: ["AsyncCachedImage"]
+            name: "AsyncCacheImageTests",
+            dependencies: ["AsyncCacheImage"]
         ),
     ]
 )
