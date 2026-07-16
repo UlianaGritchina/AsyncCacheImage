@@ -7,7 +7,7 @@ A Swift Package for loading and caching images.
 
 ## Requirements
 
-- iOS 15.0+
+- iOS 17.0+
 - Swift 6.2+
 
 ## Installation
@@ -17,7 +17,7 @@ Add the package using Swift Package Manager:
 ```swift
 .package(
     url: "https://github.com/UlianaGritchina/AsyncCacheImage.git",
-    from: "1.0.0"
+    from: "1.0.1"
 )
 ```
 
