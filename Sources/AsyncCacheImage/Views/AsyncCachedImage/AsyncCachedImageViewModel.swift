@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 @Observable
 final class AsyncCacheImageViewModel {
     
@@ -18,17 +19,19 @@ final class AsyncCacheImageViewModel {
     init(url: URL, pipeline: ImagePipeline) {
         self.url = url
         self.pipeline = pipeline
+        loadImageData()
     }
     
-    @MainActor
-    func loadImageData() async {
+    private func loadImageData() {
         guard case .loading = loadingState else { return }
         
-        do {
-            let imageData = try await pipeline.getImageData(for: url)
-            loadingState = .loaded(imageData: imageData)
-        } catch {
-            loadingState = .error
+        Task {
+            do {
+                let imageData = try await pipeline.getImageData(for: url)
+                loadingState = .loaded(imageData: imageData)
+            } catch {
+                loadingState = .error
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ public struct DefaultAsyncCacheImage: View {
     }
     
     public var body: some View {
-        AsyncCacheImage(url: url) { image in
+        AsyncCacheImage(url: url) { image, _ in
             image
                 .resizable()
                 .scaledToFit()
