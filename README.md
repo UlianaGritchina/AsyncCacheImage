@@ -65,7 +65,7 @@ Creates an `AsyncCacheImage` that asynchronously loads and caches an image from 
 - `placeholder` — A view builder displayed while the image is loading or if loading fails. Defaults to `DefaultPlaceholder()`.
 
 ## DefaultAsyncCacheImage
-```
+```swift
 import AsyncCacheImage
 import SwiftUI
 
