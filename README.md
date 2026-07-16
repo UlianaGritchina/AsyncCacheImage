@@ -17,7 +17,7 @@ Add the package using Swift Package Manager:
 ```swift
 .package(
     url: "https://github.com/UlianaGritchina/AsyncCacheImage.git",
-    from: "1.0.1"
+    from: "1.0.2"
 )
 ```
 
@@ -31,7 +31,7 @@ struct ContentView: View {
     let url = URL(string: "https://yavuzceliker.github.io/sample-images/image-1021.jpg")!
 
     var body: some View {
-        AsyncCacheImage(url: url) { image in
+        AsyncCacheImage(url: url) { image, data in
             image
                 .resizable()
                 .frame(width: 200, height: 200)
@@ -46,7 +46,7 @@ struct ContentView: View {
 ### Default placeholder
 
 ```swift
-AsyncCacheImage(url: url) { image in
+AsyncCacheImage(url: url) { image, data in
     image
         .resizable()
         .frame(width: 200, height: 200)
@@ -85,6 +85,7 @@ struct ContentView: View {
 ## Features
 
 - Async image loading
+- Returns loaded Image and image Data
 - In-memory image caching
 - SwiftUI-native API
 - Custom or default placeholder
