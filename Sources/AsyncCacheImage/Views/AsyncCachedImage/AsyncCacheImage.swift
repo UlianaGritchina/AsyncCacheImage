@@ -10,7 +10,7 @@ import SwiftUI
 public struct AsyncCacheImage<Content: View, Placeholder: View>: View {
     @State private var viewModel: AsyncCacheImageViewModel
     
-    private let content: (Image) -> Content
+    private let content: (Image, Data) -> Content
     private let placeholder: () -> Placeholder
     
     /// Initializes an `AsyncCacheImage` that asynchronously loads and caches an image from the specified URL.
@@ -31,7 +31,7 @@ public struct AsyncCacheImage<Content: View, Placeholder: View>: View {
     public init(
         url: URL,
         @ViewBuilder
-        content: @escaping (Image) -> Content,
+        content: @escaping (Image, Data) -> Content,
         @ViewBuilder
         placeholder: @escaping () -> Placeholder = { DefaultPlaceholder() },
     ) {
@@ -53,7 +53,7 @@ public struct AsyncCacheImage<Content: View, Placeholder: View>: View {
                 
             case .loaded(let data):
                 if let uiImage = UIImage(data: data) {
-                    content(Image(uiImage: uiImage))
+                    content(Image(uiImage: uiImage), data)
                 } else {
                     placeholder()
                 }
@@ -62,15 +62,12 @@ public struct AsyncCacheImage<Content: View, Placeholder: View>: View {
                 placeholder()
             }
         }
-        .task {
-            await viewModel.loadImageData()
-        }
     }
 }
 
 #Preview {
     AsyncCacheImage(
-        url: URL(string: "https://yavuzceliker.github.io/sample-images/image-1021.jpg")!) { image in
+        url: URL(string: "https://yavuzceliker.github.io/sample-images/image-1021.jpg")!) { image, _ in
             image
                 .resizable()
                 .frame(width: 100, height: 100)

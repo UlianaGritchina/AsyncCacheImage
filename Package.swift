@@ -6,8 +6,7 @@ import PackageDescription
 let package = Package(
     name: "AsyncCacheImage",
     platforms: [
-        .iOS(.v17),
-        .macOS(.v15)
+        .iOS(.v17)
     ],
     products: [
         .library(
