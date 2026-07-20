@@ -8,8 +8,7 @@
 import CryptoKit
 import Foundation
 
-actor DefaultDiskCache: DiskCache {
-
+actor DefaultDiskCache: CacheService {
     private let fileManager = FileManager.default
     private let directory: URL
 
@@ -32,25 +31,25 @@ actor DefaultDiskCache: DiskCache {
         }
     }
 
-    func save(data: Data, key: String) throws {
+    func save(data: Data, for key: String) throws {
         try data.write(to: fileURL(for: key), options: .atomic)
     }
 
-    func getData(key: String) throws -> Data? {
+    func get(from key: String) throws -> Data {
         let url = fileURL(for: key)
 
         guard fileManager.fileExists(atPath: url.path) else {
-            return nil
+            throw CachingError.noSavedData
         }
 
         return try Data(contentsOf: url)
     }
 
-    func delete(key: String) throws {
+    func delete(for key: String) throws {
         let url = fileURL(for: key)
 
         guard fileManager.fileExists(atPath: url.path) else {
-            return
+            throw CachingError.noSavedData
         }
 
         try fileManager.removeItem(at: url)

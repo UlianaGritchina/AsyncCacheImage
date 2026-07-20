@@ -62,6 +62,9 @@ public struct AsyncCacheImage<Content: View, Placeholder: View>: View {
                 placeholder()
             }
         }
+        .task {
+            await viewModel.loadImageData()
+        }
     }
 }
 

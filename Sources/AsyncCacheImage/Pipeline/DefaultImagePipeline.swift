@@ -8,14 +8,13 @@
 import Foundation
 
 final class DefaultImagePipeline: ImagePipeline {
-    
-    let memoryCache: MemoryCacheService
-    let diskCache: DiskCache
+    let memoryCache: CacheService
+    let diskCache: CacheService
     let networkLoader: NetworkLoader
     
     public init(
-        memoryCache: MemoryCacheService,
-        diskCache: DiskCache,
+        memoryCache: CacheService,
+        diskCache: CacheService,
         networkLoader: NetworkLoader
     ) {
         self.memoryCache = memoryCache
@@ -26,17 +25,18 @@ final class DefaultImagePipeline: ImagePipeline {
     func getImageData(for url: URL) async throws -> Data {
         let cacheKey = url.absoluteString
         
-        if let memoryCachedImageData = await memoryCache.get(key: cacheKey) {
+        if let memoryCachedImageData = try? await memoryCache.get(from: cacheKey) {
             return memoryCachedImageData
         }
         
-        if let diskCachedImageData = try await diskCache.getData(key: cacheKey) {
+        if let diskCachedImageData = try? await diskCache.get(from: cacheKey) {
             return diskCachedImageData
         }
         
         let imageData = try await networkLoader.data(from: url)
         
-        await memoryCache.save(data: imageData, for: cacheKey)
+        try? await memoryCache.save(data: imageData, for: cacheKey)
+        try? await diskCache.save(data: imageData, for: cacheKey)
         
         return imageData
     }

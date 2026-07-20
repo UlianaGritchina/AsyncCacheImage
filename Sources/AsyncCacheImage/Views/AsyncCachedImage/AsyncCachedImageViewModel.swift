@@ -19,19 +19,15 @@ final class AsyncCacheImageViewModel {
     init(url: URL, pipeline: ImagePipeline) {
         self.url = url
         self.pipeline = pipeline
-        loadImageData()
     }
     
-    private func loadImageData() {
+    func loadImageData() async {
         guard case .loading = loadingState else { return }
-        
-        Task {
-            do {
-                let imageData = try await pipeline.getImageData(for: url)
-                loadingState = .loaded(imageData: imageData)
-            } catch {
-                loadingState = .error
-            }
+        do {
+            let imageData = try await pipeline.getImageData(for: url)
+            loadingState = .loaded(imageData: imageData)
+        } catch {
+            loadingState = .error
         }
     }
 }
