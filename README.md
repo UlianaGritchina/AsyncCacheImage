@@ -2,7 +2,7 @@
 
 **A Swift Package for asynchronous image loading with memory and disk caching.**
 <br>Use `AsyncCacheImage` just like SwiftUI's `AsyncImage`, but with automatic memory and disk caching built in.
-<br>[Читать на русском](README.ru.md)
+[Читать на русском](README.ru.md)
 ## Architecture
 
 <img width="1536" height="1024" alt="69DC92F2-940B-4DE0-9734-E397D5B8EE7A" src="https://github.com/user-attachments/assets/0ebe6977-ce7a-4733-8445-ca2631224cd7" />
