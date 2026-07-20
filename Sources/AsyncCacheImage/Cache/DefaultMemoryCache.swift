@@ -7,7 +7,7 @@
 
 import Foundation
 
-actor DefaultMemoryCache: MemoryCacheService {
+actor DefaultMemoryCache: CacheService {
     private let cache = NSCache<NSString, NSData>()
     
     init(
@@ -22,8 +22,14 @@ actor DefaultMemoryCache: MemoryCacheService {
         cache.setObject(data as NSData, forKey: key as NSString, cost: data.count)
     }
     
-    func get(key: String) -> Data? {
-        cache.object(forKey: key as NSString) as Data?
+    func get(from key: String) throws -> Data {
+        let data = cache.object(forKey: key as NSString) as Data?
+        
+        guard let data else {
+            throw CachingError.noSavedData
+        }
+        
+        return data
     }
     
     func delete(for key: String) {

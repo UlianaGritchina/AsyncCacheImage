@@ -1,5 +1,5 @@
 //
-//  NetworkImageLoaderImpl.swift
+//  DefaultNetworkLoader.swift
 //  AsyncCacheImage
 //
 //  Created by Ульяна Гритчина on 13.07.2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class NetworkImageLoaderImpl: NetworkLoader {
+final class DefaultNetworkLoader: NetworkLoader {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
@@ -22,15 +22,11 @@ final class NetworkImageLoaderImpl: NetworkLoader {
     
     private func checkResponse(_ response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw ImageLoaderError.invalidResponse
+            throw NetworkLoaderError.invalidResponse
         }
         
-        guard (200...299).contains(httpResponse.statusCode) else {
-            throw ImageLoaderError.httpError(
-                statusCode: httpResponse.statusCode
-            )
+        guard HTTPStatusCode.success.contains(httpResponse.statusCode) else {
+            throw NetworkLoaderError.httpError(statusCode: httpResponse.statusCode)
         }
     }
 }
-
-

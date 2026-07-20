@@ -17,9 +17,10 @@ public final class AsyncCacheImageDependencies {
 
 extension AsyncCacheImageDependencies {
     @MainActor public static let live = AsyncCacheImageDependencies(
-        imagePipeline: ImagePipelineImpl(
+        imagePipeline: DefaultImagePipeline(
             memoryCache: DefaultMemoryCache(),
-            networkLoader: NetworkImageLoaderImpl()
+            diskCache: try! DefaultDiskCache(),
+            networkLoader: DefaultNetworkLoader()
         )
     )
 }
