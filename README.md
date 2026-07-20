@@ -38,7 +38,7 @@ Add the package using Swift Package Manager:
 ```swift
 .package(
     url: "https://github.com/UlianaGritchina/AsyncCacheImage.git",
-    from: "1.0.2"
+    from: "1.0.3"
 )
 ```
 
