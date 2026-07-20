@@ -4,7 +4,7 @@ A Swift Package for asynchronous image loading with memory and disk caching.
 
 ## Architecture
 
-<img width="1022" height="728" alt="Architecture" src="https://github.com/user-attachments/assets/41327278-20f0-45d7-a99c-5da750abdff6" />
+<img width="1536" height="1024" alt="69DC92F2-940B-4DE0-9734-E397D5B8EE7A" src="https://github.com/user-attachments/assets/0ebe6977-ce7a-4733-8445-ca2631224cd7" />
 
 ### Loading pipeline
 
